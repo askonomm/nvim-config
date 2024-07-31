@@ -30,8 +30,9 @@ vim.opt.rtp:prepend(lazypath)
 -- plugins
 local plugins = {
 	'neovim/nvim-lspconfig',
-	'Mofiqul/vscode.nvim',
+	'askonomm/vscode.nvim',
 	'nvim-treesitter/nvim-treesitter',
+	'mg979/vim-visual-multi',
 	{
 		'NeogitOrg/neogit',
 		dependencies = {
@@ -137,6 +138,7 @@ vim.keymap.set('n', 'lh', '<cmd>lua vim.lsp.buf.hover()<cr>')
 vim.keymap.set('n', 'lrn', '<cmd>lua vim.lsp.buf.rename()<cr>')
 vim.keymap.set('n', 'lca', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 vim.keymap.set('n', 'lff', '<cmd>lua vim.lsp.buf.format()<cr>')
+vim.keymap.set('n', 'le', '<cmd>lua vim.diagnostic.open_float()<cr>')
 
 -- shortcuts: git
 vim.keymap.set('n', 'gs', ts.git_status, {})
