@@ -107,12 +107,6 @@ require('telescope').setup({
 -- lsp
 require('lspconfig').tsserver.setup({})
 
---require('lspconfig').intelephense.setup({
---	init_options = {
---		licenseKey = '004RGFN5I71VETQ'
---	}
---})
---
 require('lspconfig').phpactor.setup({})
 
 require('lspconfig').jsonls.setup({})
