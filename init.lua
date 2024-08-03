@@ -7,6 +7,8 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.o.wrap = false
 vim.o.background = 'light'
+vim.o.laststatus = 2
+vim.cmd "set noshowmode"
 
 -- clipboard magic
 vim.api.nvim_set_option('clipboard', 'unnamedplus');
@@ -29,6 +31,18 @@ vim.opt.rtp:prepend(lazypath)
 
 -- plugins
 local plugins = {
+	{
+		'romgrk/barbar.nvim',
+		dependencies = {
+			'lewis6991/gitsigns.nvim',
+			'nvim-tree/nvim-web-devicons',
+		},
+		init = function() vim.g.barbar_auto_setup = false end,
+		opts = {
+		}
+	},
+	'itchyny/lightline.vim',
+	'lewis6991/gitsigns.nvim',
 	'neovim/nvim-lspconfig',
 	'askonomm/vscode.nvim',
 	'nvim-treesitter/nvim-treesitter',
@@ -64,6 +78,9 @@ local plugins = {
 }
 
 require('lazy').setup(plugins, {})
+
+-- plugin: gitsigns
+require('gitsigns').setup()
 
 -- plugin: vscode
 require('vscode').setup({
