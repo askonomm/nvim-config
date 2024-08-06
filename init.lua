@@ -32,15 +32,12 @@ vim.opt.rtp:prepend(lazypath)
 -- plugins
 local plugins = {
 	{
-		'romgrk/barbar.nvim',
-		dependencies = {
-			'lewis6991/gitsigns.nvim',
-			'nvim-tree/nvim-web-devicons',
-		},
-		init = function() vim.g.barbar_auto_setup = false end,
-		opts = {
+		'eraserhd/parinfer-rust',
+		build = {
+			'cargo build --release'
 		}
 	},
+	'Olical/conjure',
 	'itchyny/lightline.vim',
 	'lewis6991/gitsigns.nvim',
 	'neovim/nvim-lspconfig',
@@ -133,6 +130,8 @@ require('lspconfig').cssls.setup({})
 
 require('lspconfig').html.setup({})
 
+require('lspconfig').clojure_lsp.setup({})
+
 -- shortcuts
 local ts = require('telescope.builtin')
 
@@ -163,3 +162,6 @@ vim.keymap.set('n', 'gc', ts.git_commits, {})
 vim.keymap.set('n', 'gb', ts.git_branches, {})
 vim.keymap.set('n', 'gz', ts.git_stash, {})
 vim.keymap.set('n', 'gg', '<cmd>Neogit<cr>')
+
+-- shortcuts: clojure
+vim.keymap.set('n', 'ev', '<cmd>ConjureEvalCurrentForm<cr>')
