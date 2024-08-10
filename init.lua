@@ -6,9 +6,12 @@ vim.wo.number = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.o.wrap = false
-vim.o.background = 'light'
-vim.o.laststatus = 2
+vim.o.laststatus = 0
 vim.cmd "set noshowmode"
+vim.o.title = true
+vim.o.termguicolors = true
+vim.opt.titlestring = [[%t – %{fnamemodify(getcwd(), ':t')}]]
+vim.o.splitright = true
 
 -- clipboard magic
 vim.api.nvim_set_option('clipboard', 'unnamedplus');
@@ -37,11 +40,18 @@ local plugins = {
 			'cargo build --release'
 		}
 	},
+	{
+		'b0o/incline.nvim',
+		config = function()
+			require('incline').setup()
+		end,
+		event = 'VeryLazy'
+	},
 	'Olical/conjure',
-	'itchyny/lightline.vim',
 	'lewis6991/gitsigns.nvim',
+	'navarasu/onedark.nvim',
 	'neovim/nvim-lspconfig',
-	'askonomm/vscode.nvim',
+	--'askonomm/vscode.nvim',
 	'nvim-treesitter/nvim-treesitter',
 	'mg979/vim-visual-multi',
 	{
@@ -79,13 +89,12 @@ require('lazy').setup(plugins, {})
 -- plugin: gitsigns
 require('gitsigns').setup()
 
--- plugin: vscode
-require('vscode').setup({
-	style = 'light',
-	underline_links = true,
+-- plugin: onedark
+require('onedark').setup({
+	style = 'warmer'
 })
 
-require('vscode').load()
+require('onedark').load()
 
 -- plugin: treesitter
 require('nvim-treesitter.configs').setup({
@@ -122,7 +131,16 @@ require('telescope').setup({
 -- lsp
 require('lspconfig').tsserver.setup({})
 
-require('lspconfig').phpactor.setup({})
+require('lspconfig').intelephense.setup({
+	settings = {
+		intelephense = {
+			environment = {
+				phpVersion = '8.3',
+			},
+		},
+	},
+	root_dir = function(fname) return vim.loop.cwd() end,
+})
 
 require('lspconfig').jsonls.setup({})
 
@@ -165,3 +183,13 @@ vim.keymap.set('n', 'gg', '<cmd>Neogit<cr>')
 
 -- shortcuts: clojure
 vim.keymap.set('n', 'ev', '<cmd>ConjureEvalCurrentForm<cr>')
+vim.keymap.set('n', 'er', '<cmd>ConjureEvalRootForm<cr>')
+vim.keymap.set('n', 'eb', '<cmd>ConjureEvalBuf<cr>')
+vim.keymap.set('n', 'repl', '<cmd>ConjureLogVSplit<cr>')
+
+-- misc
+vim.api.nvim_set_hl(0, 'NeoTreeNormal', { bg = '#232326' })
+vim.api.nvim_set_hl(0, 'NeoTreeNormalNC', { bg = '#232326' })
+vim.api.nvim_set_hl(0, 'NeoTreeVertSplit', { bg = '#232326' })
+vim.api.nvim_set_hl(0, 'NeoTreeWinSeparator', { bg = '#232326', fg = '#232326' })
+vim.api.nvim_set_hl(0, 'NeoTreeEndOfBuffer', { bg = '#232326' })
