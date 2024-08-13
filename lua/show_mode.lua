@@ -17,21 +17,23 @@ _G.show_mode = function()
     -- Get the current window dimensions
     local width = api.nvim_win_get_width(0)
     local height = api.nvim_win_get_height(0)
+	local col = width - string.len(mode_map[mode] or mode) - 3
+	local text_padded = " " .. (mode_map[mode] or mode) .. " "
 
     -- Calculate the position to center the floating window
     local opts = {
         relative = "win",
-        width = string.len(mode_map[mode] or mode),
+        width = string.len(text_padded),
         height = 1,
-        row = 0,
-        col = 4,
+        row = 2,
+        col = col,
         style = "minimal",
         border = "none"
     }
 
     -- Create the floating window
     local bufnr = api.nvim_create_buf(false, true)
-    api.nvim_buf_set_lines(bufnr, 0, -1, false, { (mode_map[mode] or mode) })
+    api.nvim_buf_set_lines(bufnr, 0, -1, false, { (text_padded) })
 
     -- Display the window
     local win_id = api.nvim_open_win(bufnr, false, opts)

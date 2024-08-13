@@ -91,7 +91,8 @@ require('gitsigns').setup()
 
 -- plugin: onedark
 require('onedark').setup({
-	style = 'warmer'
+	style = 'warmer',
+	colors = { fg = '#ffffff' },
 })
 
 require('onedark').load()
